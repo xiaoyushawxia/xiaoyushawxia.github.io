@@ -99,6 +99,14 @@
           <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
       </div>
+
+      <!-- Sits in the sidebar on wide screens; visitor-map.js moves it to the
+           end of the main column on narrow ones, where the sidebar stacks on top. -->
+      <section class="visitor-map" id="visitorMap" aria-labelledby="visitors" hidden>
+        <h2 class="visitor-map__title" id="visitors">Visitors</h2>
+        <figure class="visitor-map__canvas" data-visitor-canvas></figure>
+        <ol class="visitor-map__ranking" data-visitor-ranking></ol>
+      </section>
     </aside>
 
     <main class="content" id="main">
@@ -218,15 +226,6 @@
         <li><strong>Chief Investigator</strong> &middot; Empowering female cybersecurity leaders: bridging the gender gap in cybersecurity education (0000000051). Advance HE Global Impact Grants, United Kingdom, 2023&ndash;24.</li>
         <li><strong>Lead Chief Investigator</strong> &middot; Cost-effective and secure data management in edge computing. University of Southern Queensland, Australia, 2022.</li>
       </ul> -->
-
-      <section class="visitor-map" id="visitorMap" aria-labelledby="visitors" hidden>
-        <h2 class="section-title" id="visitors">Visitors</h2>
-
-        <div class="visitor-map__body">
-          <figure class="visitor-map__canvas" data-visitor-canvas></figure>
-          <ol class="visitor-map__ranking" data-visitor-ranking></ol>
-        </div>
-      </section>
 
       <footer class="site-footer">
         <p>&copy; Xiaoyu Xia, 2026</p>

@@ -1,5 +1,6 @@
 /*
- * visitor-map.js — renders the "Visitors" bubble map and ranking.
+ * visitor-map.js — renders the "Visitors" bubble map and ranking, and keeps
+ * the block in the sidebar on wide screens and in the main column on narrow ones.
  *
  * Data sources (both static files in this repo, no third-party requests):
  *   stats.json                  — refreshed daily from Google Analytics by
@@ -18,6 +19,48 @@
 
   var MIN_R = 3.5;
   var MAX_R = 22;
+
+  /* --- where the block lives --------------------------------------------
+   * Wide screens: in the profile sidebar, under the social links. Below
+   * 900px the sidebar stacks above the content, so the block moves to the
+   * end of the main column (before the footer) instead of pushing the bio
+   * down the page.
+   */
+  var sidebar = document.querySelector('.profile');
+  var main = document.getElementById('main');
+  var narrow = window.matchMedia ? window.matchMedia('(max-width: 900px)') : null;
+
+  function place() {
+    if (!sidebar || !main) return;
+    if (narrow && narrow.matches) {
+      if (root.parentNode !== main) main.insertBefore(root, main.querySelector('.site-footer'));
+    } else if (root.parentNode !== sidebar) {
+      sidebar.appendChild(root);
+    }
+    fit();
+  }
+
+  /*
+   * The sidebar is sticky. With the map in it, it can be taller than the
+   * window, and a plain sticky top would then hide its lower half. Lowering
+   * `top` (negative if need be) lets it scroll until its bottom is in view
+   * and stick from there.
+   */
+  function fit() {
+    if (!sidebar) return;
+    sidebar.style.top = '';
+    if (narrow && narrow.matches) return;
+    var top = parseFloat(window.getComputedStyle(sidebar).top) || 0;
+    var room = window.innerHeight - sidebar.offsetHeight - 24;
+    if (room < top) sidebar.style.top = room + 'px';
+  }
+
+  place();
+  if (narrow) {
+    if (narrow.addEventListener) narrow.addEventListener('change', place);
+    else if (narrow.addListener) narrow.addListener(place);
+  }
+  window.addEventListener('resize', fit);
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, function (ch) {
@@ -147,6 +190,7 @@
 
     link(root);
     root.hidden = false;
+    fit();
   }).catch(function (error) {
     console.error('Visitor map unavailable:', error);
 
@@ -163,6 +207,7 @@
         'example <code>python3 -m http.server</code>, then open ' +
         '<code>http://localhost:8000/</code>.</p>';
       root.hidden = false;
+      fit();
     }
   });
 })();

@@ -1185,9 +1185,10 @@ code, pre { font-family: var(--font-mono); }
 }
 
 .visitor-map__note {
-  margin: 0 0 var(--space-4);
+  margin: 0;
   color: var(--ink-muted);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
 }
 
 .visitor-map__note code {
@@ -1195,20 +1196,33 @@ code, pre { font-family: var(--font-mono); }
   font-size: 0.95em;
   background: var(--surface-3);
   border-radius: var(--radius-sm);
+  word-break: break-all;
 }
 
-.visitor-map__body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px;
-  gap: var(--space-4);
-  align-items: start;
+/*
+ * A narrow vertical block: heading, map, then the top-ten list. On wide
+ * screens it sits under the profile in the sidebar; below 900px the script
+ * moves it to the end of the main column.
+ */
+.visitor-map { text-align: left; }
+.profile .visitor-map { margin: var(--space-7) 0 0; }
+
+.visitor-map__title {
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
 
 .visitor-map__canvas {
   margin: 0;
-  padding: var(--space-2);
+  padding: var(--space-1);
   background: var(--map-ocean);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius);
 }
 
 .visitor-map__svg { display: block; width: 100%; height: auto; }
@@ -1224,46 +1238,52 @@ code, pre { font-family: var(--font-mono); }
 
 .visitor-map__bubble {
   fill: var(--map-bubble);
-  fill-opacity: 0.5;
+  fill-opacity: 0.55;
   stroke: var(--map-bubble);
-  stroke-width: 1;
+  stroke-width: 1.2;
   cursor: default;
-  transition: fill-opacity 0.15s ease, stroke-width 0.15s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill-opacity 0.15s ease, stroke-width 0.15s ease, transform 0.15s ease;
 }
 
 .visitor-map__bubble:hover,
 .visitor-map__bubble:focus,
 .visitor-map__bubble.is-active {
-  fill-opacity: 0.85;
+  fill-opacity: 0.9;
   stroke-width: 2;
+  transform: scale(1.12);
   outline: none;
 }
 
 /* Ranking ---------------------------------------------------------------- */
 
 .visitor-map__ranking {
+  display: grid;
+  gap: 2px;
   list-style: none;
-  margin: 0;
+  margin: var(--space-3) 0 0;
   padding: 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 
 .visitor-map__row {
   display: grid;
-  grid-template-columns: 20px minmax(0, 1fr) 34px;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0 var(--space-2);
+  column-gap: var(--space-2);
+  row-gap: 3px;
   margin: 0;
-  padding: 3px var(--space-2) 5px;
+  padding: 3px var(--space-1);
   border-radius: var(--radius-sm);
-  line-height: 1.35;
+  line-height: 1.3;
   transition: background-color 0.15s ease;
 }
 
+.visitor-map__row:hover,
 .visitor-map__row.is-active { background: var(--surface-2); }
 
 .visitor-map__flag {
-  grid-row: 1;
   width: 20px;
   height: 15px;
   border-radius: 2px;
@@ -1274,26 +1294,22 @@ code, pre { font-family: var(--font-mono); }
 .visitor-map__flag--blank { box-shadow: none; }
 
 .visitor-map__country {
-  grid-row: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .visitor-map__value {
-  grid-row: 1;
   text-align: right;
-  color: var(--ink-muted);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
 .visitor-map__bar {
-  grid-column: 1 / -1;
-  grid-row: 2;
+  grid-column: 2 / -1;
   display: block;
-  height: 3px;
-  margin-top: 2px;
-  border-radius: 2px;
+  height: 2px;
+  border-radius: 999px;
   background: var(--surface-3);
   overflow: hidden;
 }
@@ -1301,23 +1317,23 @@ code, pre { font-family: var(--font-mono); }
 .visitor-map__bar-fill {
   display: block;
   height: 100%;
-  border-radius: 2px;
+  border-radius: inherit;
   background: var(--map-bubble);
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
-@media (max-width: 760px) {
-  .visitor-map__body {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-4);
-  }
-  .visitor-map__ranking {
-    columns: 2;
+/* Narrow screens: the block lives at the end of the main column. */
+.content .visitor-map { margin: var(--space-7) 0 var(--space-6); }
+
+@media (min-width: 520px) and (max-width: 900px) {
+  .content .visitor-map__ranking {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--space-5);
   }
-  .visitor-map__row { grid-template-columns: 18px minmax(0, 1fr) 28px; }
-  .visitor-map__flag { width: 18px; height: 13.5px; }
-  .visitor-map__row { break-inside: avoid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visitor-map__bubble, .visitor-map__row { transition: none; }
 }
 
 /* ==========================================================================
