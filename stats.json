@@ -1,49 +1,49 @@
 {
-  "visitors": 315,
+  "visitors": 348,
   "countries": [
     {
       "name": "Australia",
-      "value": 123
+      "value": 131
     },
     {
       "name": "China",
-      "value": 56
+      "value": 60
     },
     {
       "name": "United States",
-      "value": 42
+      "value": 46
     },
     {
       "name": "Singapore",
-      "value": 31
+      "value": 34
     },
     {
       "name": "Japan",
-      "value": 15
+      "value": 22
     },
     {
       "name": "Hong Kong",
-      "value": 13
+      "value": 14
     },
     {
       "name": "Taiwan",
-      "value": 10
+      "value": 12
     },
     {
       "name": "Bangladesh",
-      "value": 5
+      "value": 7
     },
     {
       "name": "Vietnam",
       "value": 5
     },
     {
-      "name": "India",
+      "name": "Germany",
       "value": 4
     },
     {
-      "name": "Germany",
-      "value": 3
+      "name": "India",
+      "value": 4
     },
     {
       "name": "Malaysia",
@@ -51,6 +51,10 @@
     },
     {
       "name": "Argentina",
+      "value": 2
+    },
+    {
+      "name": "Canada",
       "value": 2
     },
     {
@@ -70,8 +74,8 @@
       "value": 2
     },
     {
-      "name": "Canada",
-      "value": 1
+      "name": "United Kingdom",
+      "value": 2
     },
     {
       "name": "Cyprus",
@@ -94,6 +98,10 @@
       "value": 1
     },
     {
+      "name": "Luxembourg",
+      "value": 1
+    },
+    {
       "name": "Macao",
       "value": 1
     },
@@ -106,6 +114,10 @@
       "value": 1
     },
     {
+      "name": "Saudi Arabia",
+      "value": 1
+    },
+    {
       "name": "South Korea",
       "value": 1
     },
@@ -115,10 +127,6 @@
     },
     {
       "name": "Thailand",
-      "value": 1
-    },
-    {
-      "name": "United Kingdom",
       "value": 1
     }
   ]
