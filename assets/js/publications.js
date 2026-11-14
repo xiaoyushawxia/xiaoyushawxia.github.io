@@ -1,22 +1,30 @@
 /*
- * publications.js — topic filtering for the publications page.
+ * publications.js — two views of the publications page.
  *
- * The page is grouped into topic sections, so filtering is a matter of showing
- * one section (or one pillar's two sections) and hiding the rest. Each filter
- * button carries the topic codes it selects; the "All" button carries none.
- * Counts come from the markup, so adding a paper needs no change here, and the
+ * The markup is grouped into topic sections; that grouping is the source of
+ * truth and is what readers without JavaScript see. With the script, the
+ * default view ("Listed publications") re-lists every paper under Conference
+ * Papers and Journal Articles, newest first, with papers from the same venue
+ * and year kept together. Choosing a topic button switches
+ * back to the topic sections and shows only the ones it selects.
+ *
+ * Venue type is read from the periodical line: anything naming a Conference or
+ * Symposium is a conference paper, everything else a journal article. Put
+ * data-type="conf" or data-type="journal" on an <li> to override that. Counts
+ * come from the markup too, so adding a paper needs no change here. The topic
  * choice is mirrored into the URL hash so a filtered view can be linked to.
  */
 (function () {
   'use strict';
 
   var bar = document.getElementById('pubFilter');
-  if (!bar) {
+  var list = document.querySelector('.publications');
+  if (!bar || !list) {
     return;
   }
 
-  var sections = Array.prototype.slice.call(document.querySelectorAll('.pub-topic-section'));
-  var pillars = Array.prototype.slice.call(document.querySelectorAll('.pub-pillar'));
+  var sections = Array.prototype.slice.call(list.querySelectorAll('.pub-topic-section'));
+  var pillars = Array.prototype.slice.call(list.querySelectorAll('.pub-pillar'));
   var buttons = Array.prototype.slice.call(bar.querySelectorAll('[data-topics]'));
   var status = bar.querySelector('.pub-filter__status');
   if (!sections.length) {
@@ -32,6 +40,69 @@
   }
 
   var total = sections.reduce(function (sum, s) { return sum + papersIn(s); }, 0);
+
+  /* --- the by-venue view, built from the topic sections ----------------- */
+  function textOf(li, selector) {
+    var el = li.querySelector(selector);
+    return el ? el.textContent : '';
+  }
+
+  function yearOf(li) {
+    var m = /(\d{4})\D*$/.exec(textOf(li, '.periodical'));
+    if (m) return +m[1];
+    m = /'(\d{2})\s*$/.exec(textOf(li, '.badge'));
+    return m ? 2000 + +m[1] : 0;
+  }
+
+  function typeOf(li) {
+    var given = li.getAttribute('data-type');
+    if (given) return given;
+    return /\b(conference|symposium)\b/i.test(textOf(li, '.periodical')) ? 'conf' : 'journal';
+  }
+
+  function venueOf(li) {
+    return textOf(li, '.badge').replace(/\s*'\d{2}\s*$/, '').trim();
+  }
+
+  var papers = Array.prototype.slice.call(list.querySelectorAll('.pub-topic-section li[data-topics]'))
+    .map(function (li, i) {
+      return { li: li, year: yearOf(li), type: typeOf(li), venue: venueOf(li), order: i };
+    });
+
+  /* Within a year, papers at the same venue sit together; venues keep the
+     order in which they first appear on the page. */
+  var firstSeen = {};
+  papers.forEach(function (p) {
+    var key = p.year + '|' + p.venue;
+    if (!(key in firstSeen)) firstSeen[key] = p.order;
+  });
+  papers.sort(function (a, b) {
+    return (b.year - a.year) ||
+      (firstSeen[a.year + '|' + a.venue] - firstSeen[b.year + '|' + b.venue]) ||
+      (a.order - b.order);
+  });
+
+  var byVenue = document.createElement('div');
+  byVenue.className = 'pub-venue-view';
+  [['conf', 'Conference Papers', 'conference-papers'],
+   ['journal', 'Journal Articles', 'journal-articles']].forEach(function (group) {
+    var mine = papers.filter(function (p) { return p.type === group[0]; });
+    if (!mine.length) return;
+    var section = document.createElement('section');
+    section.className = 'pub-venue';
+    section.setAttribute('data-venue', group[0]);
+    var heading = document.createElement('h3');
+    heading.className = 'pillar-title';
+    heading.id = group[2];
+    heading.textContent = group[1];
+    var ol = document.createElement('ol');
+    ol.className = 'bibliography';
+    mine.forEach(function (p) { ol.appendChild(p.li.cloneNode(true)); });
+    section.appendChild(heading);
+    section.appendChild(ol);
+    byVenue.appendChild(section);
+  });
+  list.appendChild(byVenue);
 
   /* --- counts, straight from the markup --------------------------------- */
   buttons.forEach(function (button) {
@@ -50,8 +121,11 @@
     var wanted = codesOf(button);
     var shown = 0;
 
+    /* No topic chosen: show the by-venue list and hide the topic sections. */
+    byVenue.hidden = wanted.length > 0;
+
     sections.forEach(function (section) {
-      var match = !wanted.length || wanted.indexOf(section.getAttribute('data-topic')) !== -1;
+      var match = wanted.indexOf(section.getAttribute('data-topic')) !== -1;
       section.hidden = !match;
       if (match) shown += papersIn(section);
     });

@@ -877,7 +877,12 @@ code, pre { font-family: var(--font-mono); }
 }
 
 .pub-topic-section[hidden],
-.pub-pillar[hidden] { display: none; }
+.pub-pillar[hidden],
+.pub-venue-view[hidden] { display: none; }
+
+/* Default view: the same papers listed by venue type (built by publications.js). */
+.pub-venue:first-child .pillar-title { margin-top: var(--space-2); }
+.publications .pub-venue ol.bibliography { margin-top: var(--space-4); }
 
 /* Pillar and topic headings ---------------------------------------------- */
 
