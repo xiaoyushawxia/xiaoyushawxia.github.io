@@ -1,2 +1,5 @@
 
 .DS_Store
+
+# Files waiting to be deleted by hand
+_to_delete/

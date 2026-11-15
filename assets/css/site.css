@@ -1015,6 +1015,9 @@ code, pre { font-family: var(--font-mono); }
   color: var(--ink-muted);
 }
 
+/* A sub-heading that follows a grid (e.g. "Visiting Students" under Students). */
+.member-grid + .lab-lead { margin-top: var(--space-6); }
+
 .member-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

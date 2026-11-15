@@ -12,4 +12,4 @@ keeping the same name and the `.png` extension. Square images work best
     liuyue-yin.png
 
 To add a member, drop in `<slug>.png` and copy an existing `<li class="member">`
-block in `spark.html`.
+block in `people.html`.
