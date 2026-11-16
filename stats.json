@@ -1,32 +1,44 @@
 {
-  "visitors": 431,
+  "visitors": 536,
   "countries": [
     {
-      "name": "Australia",
-      "value": 132
+      "name": "United States",
+      "value": 134
     },
     {
-      "name": "United States",
-      "value": 85
+      "name": "Australia",
+      "value": 133
     },
     {
       "name": "China",
-      "value": 59
+      "value": 60
     },
     {
       "name": "Singapore",
       "value": 34
     },
     {
+      "name": "Germany",
+      "value": 23
+    },
+    {
       "name": "Japan",
       "value": 22
+    },
+    {
+      "name": "Seychelles",
+      "value": 15
+    },
+    {
+      "name": "United Kingdom",
+      "value": 15
     },
     {
       "name": "Hong Kong",
       "value": 14
     },
     {
-      "name": "Germany",
+      "name": "Netherlands",
       "value": 12
     },
     {
@@ -34,7 +46,11 @@
       "value": 12
     },
     {
-      "name": "United Kingdom",
+      "name": "India",
+      "value": 8
+    },
+    {
+      "name": "Italy",
       "value": 8
     },
     {
@@ -42,32 +58,24 @@
       "value": 7
     },
     {
-      "name": "India",
-      "value": 7
-    },
-    {
       "name": "Canada",
-      "value": 5
+      "value": 6
     },
     {
-      "name": "Netherlands",
-      "value": 5
+      "name": "Czechia",
+      "value": 6
     },
     {
       "name": "Vietnam",
       "value": 5
     },
     {
-      "name": "Seychelles",
-      "value": 4
-    },
-    {
-      "name": "Czechia",
-      "value": 3
-    },
-    {
       "name": "Malaysia",
       "value": 3
+    },
+    {
+      "name": "Andorra",
+      "value": 2
     },
     {
       "name": "Argentina",
@@ -86,7 +94,11 @@
       "value": 2
     },
     {
-      "name": "Italy",
+      "name": "Liechtenstein",
+      "value": 2
+    },
+    {
+      "name": "Malta",
       "value": 2
     },
     {
@@ -100,10 +112,6 @@
     {
       "name": "United Arab Emirates",
       "value": 2
-    },
-    {
-      "name": "Andorra",
-      "value": 1
     },
     {
       "name": "Austria",
@@ -138,15 +146,15 @@
       "value": 1
     },
     {
+      "name": "Isle of Man",
+      "value": 1
+    },
+    {
       "name": "Luxembourg",
       "value": 1
     },
     {
       "name": "Macao",
-      "value": 1
-    },
-    {
-      "name": "Malta",
       "value": 1
     },
     {
@@ -162,7 +170,15 @@
       "value": 1
     },
     {
+      "name": "Spain",
+      "value": 1
+    },
+    {
       "name": "Sweden",
+      "value": 1
+    },
+    {
+      "name": "Switzerland",
       "value": 1
     },
     {
