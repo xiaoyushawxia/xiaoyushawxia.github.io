@@ -61,17 +61,32 @@
     return /\b(conference|symposium)\b/i.test(textOf(li, '.periodical')) ? 'conf' : 'journal';
   }
 
+  /* Xiaoyu's role on a paper: 0 first author, 1 corresponding (*),
+     2 last author, 3 any other position. */
+  function roleOf(li) {
+    var text = textOf(li, '.author').replace(/\s+/g, ' ').trim();
+    var names = text.split(/,\s*|\s+and\s+/).filter(Boolean);
+    var at = -1;
+    names.forEach(function (n, i) { if (at < 0 && /(Xiaoyu|X\.) Xia/.test(n)) at = i; });
+    if (at === 0) return 0;
+    if (/(Xiaoyu|X\.) Xia\s*\*/.test(text)) return 1;
+    if (at === names.length - 1) return 2;
+    return 3;
+  }
+
   function venueOf(li) {
     return textOf(li, '.badge').replace(/\s*'\d{2}\s*$/, '').trim();
   }
 
   var papers = Array.prototype.slice.call(list.querySelectorAll('.pub-topic-section li[data-topics]'))
     .map(function (li, i) {
-      return { li: li, year: yearOf(li), type: typeOf(li), venue: venueOf(li), order: i };
+      return { li: li, year: yearOf(li), type: typeOf(li), venue: venueOf(li), role: roleOf(li), order: i };
     });
 
   /* Within a year, papers at the same venue sit together; venues keep the
-     order in which they first appear on the page. */
+     order in which they first appear on the page. Inside one venue, papers
+     where Xiaoyu is first author come first, then corresponding, then last
+     author, then the rest. */
   var firstSeen = {};
   papers.forEach(function (p) {
     var key = p.year + '|' + p.venue;
@@ -80,6 +95,7 @@
   papers.sort(function (a, b) {
     return (b.year - a.year) ||
       (firstSeen[a.year + '|' + a.venue] - firstSeen[b.year + '|' + b.venue]) ||
+      (a.role - b.role) ||
       (a.order - b.order);
   });
 
