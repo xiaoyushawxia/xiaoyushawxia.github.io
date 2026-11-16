@@ -12,7 +12,8 @@
  * Symposium is a conference paper, everything else a journal article. Put
  * data-type="conf" or data-type="journal" on an <li> to override that. Counts
  * come from the markup too, so adding a paper needs no change here. The topic
- * choice is mirrored into the URL hash so a filtered view can be linked to.
+ * choice is mirrored into the URL hash so a filtered view can be linked to,
+ * and every paper has an id, so publications.html#<id> opens on that paper.
  */
 (function () {
   'use strict';
@@ -97,7 +98,15 @@
     heading.textContent = group[1];
     var ol = document.createElement('ol');
     ol.className = 'bibliography';
-    mine.forEach(function (p) { ol.appendChild(p.li.cloneNode(true)); });
+    mine.forEach(function (p) {
+      /* The copy carries the paper's id as data-paper so ids stay unique. */
+      var copy = p.li.cloneNode(true);
+      if (p.li.id) {
+        copy.removeAttribute('id');
+        copy.setAttribute('data-paper', p.li.id);
+      }
+      ol.appendChild(copy);
+    });
     section.appendChild(heading);
     section.appendChild(ol);
     byVenue.appendChild(section);
@@ -117,7 +126,7 @@
   });
 
   /* --- applying a filter ------------------------------------------------ */
-  function apply(button) {
+  function apply(button, keepHash) {
     var wanted = codesOf(button);
     var shown = 0;
 
@@ -147,7 +156,7 @@
     }
 
     var hash = wanted.length ? '#topic=' + wanted.join('+') : '';
-    if (window.history && window.history.replaceState) {
+    if (!keepHash && window.history && window.history.replaceState) {
       window.history.replaceState(null, '', window.location.pathname + window.location.search + hash);
     }
   }
@@ -156,7 +165,36 @@
     button.addEventListener('click', function () { apply(button); });
   });
 
-  /* --- restore a linked-to filter --------------------------------------- */
+  /* --- links to a single paper (publications.html#trace-neurips26) ------ */
+  function showPaper(id) {
+    var original = id && document.getElementById(id);
+    if (!original || !original.matches('li[data-topics]')) return false;
+
+    /* Show it where it currently lives: the by-venue copy in the default
+       view, or the topic section when a topic is selected. */
+    var target = byVenue.hidden ? original : byVenue.querySelector('[data-paper="' + id + '"]');
+    if (!target || target.closest('[hidden]')) {
+      apply(buttons[0], true);
+      target = byVenue.querySelector('[data-paper="' + id + '"]');
+    }
+    if (!target) return false;
+
+    target.scrollIntoView({ block: 'start' });
+    var row = target.querySelector('.pub-row');
+    if (row) {
+      row.classList.remove('is-target');
+      void row.offsetWidth;            /* restart the highlight if clicked again */
+      row.classList.add('is-target');
+    }
+    return true;
+  }
+
+  window.addEventListener('hashchange', function () {
+    var id = window.location.hash.slice(1);
+    if (id && id.indexOf('topic=') !== 0) showPaper(decodeURIComponent(id));
+  });
+
+  /* --- restore a linked-to filter or paper ------------------------------ */
   var fromHash = /^#topic=(.+)$/.exec(window.location.hash);
   var initial = buttons[0];
   if (fromHash) {
@@ -167,5 +205,10 @@
   }
 
   bar.hidden = false;      /* the controls do nothing without this script */
-  apply(initial);
+  var paperId = !fromHash && window.location.hash.length > 1
+    ? decodeURIComponent(window.location.hash.slice(1)) : '';
+  apply(initial, Boolean(paperId));
+  if (paperId) {
+    window.requestAnimationFrame(function () { showPaper(paperId); });
+  }
 })();
