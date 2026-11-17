@@ -49,6 +49,31 @@ jobs:
 
           GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
 
+          # Optional: mainland China from Baidu Tongji (see README).
+          BAIDU_API_KEY: ${{ secrets.BAIDU_API_KEY }}
+
+          BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+
+          BAIDU_REFRESH_TOKEN: ${{ secrets.BAIDU_REFRESH_TOKEN }}
+
+          BAIDU_SITE_ID: ${{ secrets.BAIDU_SITE_ID }}
+
+      # Baidu rotates its refresh token on every use; store the new one so
+      # tomorrow's run can log in again. Needs a GH_PAT secret that may write
+      # this repository's Actions secrets.
+      - if: ${{ always() && hashFiles('scripts/baidu_refresh_token.txt') != '' }}
+
+        run: |
+
+          gh secret set BAIDU_REFRESH_TOKEN < baidu_refresh_token.txt
+          rm -f baidu_refresh_token.txt
+
+        working-directory: scripts
+
+        env:
+
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+
       - run: |
 
           git config user.name github-actions

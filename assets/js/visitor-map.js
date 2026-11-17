@@ -22,6 +22,9 @@
   }
 
   var MIN_R = 3.5;
+  /* ISO codes drawn as a single country-level bubble on the map (mainland China). */
+  var WHOLE_COUNTRIES = ['CN'];
+
   var MAX_R = 18;   /* one bubble per city, so a little smaller than per country */
 
   /* --- where the block lives --------------------------------------------
@@ -165,14 +168,16 @@
     var spots = {};
     stats.cities.forEach(function (c) {
       if (!c || !(c.value > 0)) return;
-      var xy = (typeof c.lat === 'number' && typeof c.lon === 'number')
+      /* Countries shown as one bubble rather than city by city. */
+      var whole = WHOLE_COUNTRIES.indexOf(String(c.code || '').toUpperCase()) !== -1;
+      var xy = (!whole && typeof c.lat === 'number' && typeof c.lon === 'number')
         ? project(c.lon, c.lat)
         : (pointOf(c.country, c.code) || null);
       if (!xy) return;
       var key = Math.round(xy[0]) + ',' + Math.round(xy[1]);
       var spot = spots[key] || (spots[key] = { x: xy[0], y: xy[1], value: 0, names: [], country: c.country });
       spot.value += c.value;
-      if (c.name && spot.names.indexOf(c.name) === -1) spot.names.push(c.name);
+      if (!whole && c.name && spot.names.indexOf(c.name) === -1) spot.names.push(c.name);
     });
 
     return Object.keys(spots).map(function (key) {
