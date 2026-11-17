@@ -105,8 +105,13 @@ for (const [ga, known] of Object.entries(GA_SPELLINGS)) {
 }
 
 fs.mkdirSync(path.dirname(OUT_DATA), { recursive: true });
+/* The projection is saved too, so the page can place any latitude/longitude
+   (a visitor's city from stats.json) on the same map. */
+const round3 = n => Math.round(n * 1000) / 1000;
 fs.writeFileSync(OUT_DATA, JSON.stringify({
-  width: WIDTH, height: HEIGHT, viewBox, land: landPath, borders: borderPath, points,
+  width: WIDTH, height: HEIGHT, viewBox,
+  projection: { type: 'naturalEarth1', scale: round3(projection.scale()), translate: projection.translate().map(round3) },
+  land: landPath, borders: borderPath, points,
 }));
 
 /* ------------------------------------------------------------------ flags */

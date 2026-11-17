@@ -1,13 +1,17 @@
 /*
- * visitor-map.js — renders the "Visitors" bubble map and ranking, and keeps
+ * visitor-map.js — renders the "Visitors" bubble map (one bubble per city)
+ * and the country ranking (visits per country), and keeps
  * the block in the sidebar on wide screens and in the main column on narrow ones.
  *
  * Data sources (both static files in this repo, no third-party requests):
  *   stats.json                  — refreshed daily from Google Analytics by
  *                                 .github/workflows/update_stats.yml
- *   assets/data/world-map.json  — pre-projected world geometry and one
- *                                 pre-projected x/y point per country, so the
- *                                 browser never has to do projection maths.
+ *   assets/data/world-map.json  — pre-projected world geometry, one x/y
+ *                                 point per country, and the projection's
+ *                                 scale/offset so city coordinates can be
+ *                                 placed on the same map.
+ *
+ * Counts are visits (GA sessions), not distinct people.
  */
 (function () {
   'use strict';
@@ -18,7 +22,7 @@
   }
 
   var MIN_R = 3.5;
-  var MAX_R = 22;
+  var MAX_R = 18;   /* one bubble per city, so a little smaller than per country */
 
   /* --- where the block lives --------------------------------------------
    * Wide screens: in the profile sidebar, under the social links. Below
@@ -106,17 +110,34 @@
     });
   }
 
-  function renderMap(world, countries, max) {
-    /* Largest bubbles first so the small ones stay clickable on top. */
-    var plotted = countries.filter(function (c) { return c.point; });
+  /*
+   * Natural Earth projection, as d3-geo draws it, with the scale and offset
+   * saved in world-map.json — so a city's latitude/longitude lands on the
+   * same map as the pre-drawn coastlines.
+   */
+  function projector(world) {
+    var pr = world.projection;
+    if (!pr || pr.type !== 'naturalEarth1') return null;
+    var k = pr.scale, tx = pr.translate[0], ty = pr.translate[1];
+    return function (lon, lat) {
+      var l = lon * Math.PI / 180, f = lat * Math.PI / 180;
+      var f2 = f * f, f4 = f2 * f2;
+      var x = l * (0.8707 - 0.131979 * f2 + f4 * (-0.013791 + f4 * (0.003971 * f2 - 0.001529 * f4)));
+      var y = f * (1.007226 + f2 * (0.015085 + f4 * (-0.044475 + 0.028874 * f2 - 0.005916 * f4)));
+      return [tx + k * x, ty - k * y];
+    };
+  }
 
-    var bubbles = plotted.map(function (c) {
-      var p = c.point;
-      return '<circle class="visitor-map__bubble" data-country="' + escapeHtml(c.name) + '"' +
-        ' cx="' + p[0] + '" cy="' + p[1] + '" r="' + radius(c.value, max).toFixed(1) + '"' +
-        ' tabindex="0" role="img"' +
-        ' aria-label="' + escapeHtml(c.name) + ': ' + c.value + ' visitors">' +
-        '<title>' + escapeHtml(c.name) + ' — ' + c.value + '</title></circle>';
+  function renderMap(world, bubbles, max) {
+    /* Largest bubbles first so the small ones stay hoverable on top. */
+    var drawn = bubbles.slice().sort(function (a, b) { return b.value - a.value; });
+
+    var circles = drawn.map(function (c) {
+      var label = c.label + ': ' + c.value.toLocaleString() + (c.value === 1 ? ' visit' : ' visits');
+      return '<circle class="visitor-map__bubble" data-country="' + escapeHtml(c.country) + '"' +
+        ' cx="' + c.x.toFixed(1) + '" cy="' + c.y.toFixed(1) + '" r="' + radius(c.value, max).toFixed(1) + '"' +
+        ' tabindex="0" role="img" aria-label="' + escapeHtml(label) + '">' +
+        '<title>' + escapeHtml(label) + '</title></circle>';
     }).join('');
 
     var viewBox = world.viewBox || ('0 0 ' + world.width + ' ' + world.height);
@@ -125,8 +146,40 @@
       ' role="img" aria-label="World map of visitor locations" preserveAspectRatio="xMidYMid meet">' +
       '<path class="visitor-map__land" d="' + world.land + '"/>' +
       '<path class="visitor-map__borders" d="' + world.borders + '"/>' +
-      bubbles +
+      circles +
       '</svg>';
+  }
+
+  /*
+   * One bubble per city (visits at the same spot are merged). Without city
+   * data — an older stats.json — fall back to one bubble per country.
+   */
+  function bubblesFor(stats, countries, world, pointOf) {
+    var project = projector(world);
+    if (!project || !Array.isArray(stats.cities) || !stats.cities.length) {
+      return countries.filter(function (c) { return c.point; }).map(function (c) {
+        return { x: c.point[0], y: c.point[1], value: c.value, label: c.name, country: c.name };
+      });
+    }
+
+    var spots = {};
+    stats.cities.forEach(function (c) {
+      if (!c || !(c.value > 0)) return;
+      var xy = (typeof c.lat === 'number' && typeof c.lon === 'number')
+        ? project(c.lon, c.lat)
+        : (pointOf(c.country, c.code) || null);
+      if (!xy) return;
+      var key = Math.round(xy[0]) + ',' + Math.round(xy[1]);
+      var spot = spots[key] || (spots[key] = { x: xy[0], y: xy[1], value: 0, names: [], country: c.country });
+      spot.value += c.value;
+      if (c.name && spot.names.indexOf(c.name) === -1) spot.names.push(c.name);
+    });
+
+    return Object.keys(spots).map(function (key) {
+      var s = spots[key];
+      var place = s.names.length ? s.names.slice(0, 3).join(', ') + (s.names.length > 3 ? ' and others' : '') + ', ' : '';
+      return { x: s.x, y: s.y, value: s.value, label: place + s.country, country: s.country };
+    });
   }
 
   function renderRanking(countries, max) {
@@ -177,15 +230,28 @@
     var world = results[1];
 
     var locate = locator(world.points);
+    var byCode = {};
+    Object.keys(world.points).forEach(function (name) {
+      var p = world.points[name];
+      if (p[2] && !byCode[p[2]]) byCode[p[2]] = p;
+    });
+    function pointOf(name, code) {
+      return (code && byCode[String(code).toLowerCase()]) || locate(name);
+    }
 
+    /* Ranking: visits per country. */
     var countries = (stats.countries || [])
       .filter(function (c) { return c && c.name && c.name !== '(not set)' && c.value > 0; })
-      .map(function (c) { return { name: c.name, value: c.value, point: locate(c.name) }; })
+      .map(function (c) { return { name: c.name, value: c.value, point: pointOf(c.name, c.code) }; })
       .sort(function (a, b) { return b.value - a.value; });
 
     var max = countries.length ? countries[0].value : 0;
 
-    root.querySelector('[data-visitor-canvas]').innerHTML = renderMap(world, countries, max);
+    /* Map: visits per city. */
+    var bubbles = bubblesFor(stats, countries, world, pointOf);
+    var bubbleMax = bubbles.reduce(function (m, c) { return Math.max(m, c.value); }, 0);
+
+    root.querySelector('[data-visitor-canvas]').innerHTML = renderMap(world, bubbles, bubbleMax);
     root.querySelector('[data-visitor-ranking]').innerHTML = renderRanking(countries, max);
 
     link(root);

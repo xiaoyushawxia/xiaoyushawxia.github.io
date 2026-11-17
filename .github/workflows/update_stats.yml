@@ -31,6 +31,14 @@ jobs:
 
         working-directory: scripts
 
+      # City coordinates for the map (GeoNames, CC BY 4.0). If the download
+      # fails the map still works, with every visit at its country's centre.
+      - run: |
+
+          curl -fsSL -o cities1000.zip https://download.geonames.org/export/dump/cities1000.zip && unzip -o -q cities1000.zip || echo "GeoNames download failed"
+
+        working-directory: scripts
+
       - run: node update_stats.mjs
 
         working-directory: scripts

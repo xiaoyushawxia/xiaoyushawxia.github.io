@@ -1,5 +1,5 @@
 #!/bin/sh
-# Stamp today's date onto every local CSS/JS reference (?v=YYYYMMDD) so that
+# Stamp today's date onto every local CSS/JS reference (?v=YYYYMMDDhhmm) so that
 # browsers fetch the new files right after a deploy instead of mixing a fresh
 # page with a stylesheet cached for up to ten minutes by GitHub Pages.
 #
@@ -7,7 +7,7 @@
 # assets/js, then commit as usual:
 #     sh scripts/bump-assets.sh
 set -e
-v=$(date +%Y%m%d)
+v=$(date +%Y%m%d%H%M)   # date and time, so two deploys on one day still differ
 for f in *.html; do
   # Works with both BSD (macOS) and GNU sed.
   sed -E -i.bak \
