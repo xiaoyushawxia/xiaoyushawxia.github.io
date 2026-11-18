@@ -1,16 +1,16 @@
 {
   "metric": "sessions",
-  "visits": 1266,
+  "visits": 1295,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 625
+      "value": 636
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 201
+      "value": 211
     },
     {
       "name": "China",
@@ -20,7 +20,7 @@
     {
       "name": "Singapore",
       "code": "SG",
-      "value": 39
+      "value": 40
     },
     {
       "name": "Germany",
@@ -28,19 +28,19 @@
       "value": 35
     },
     {
+      "name": "United Kingdom",
+      "code": "GB",
+      "value": 33
+    },
+    {
       "name": "Japan",
       "code": "JP",
       "value": 32
     },
     {
-      "name": "United Kingdom",
-      "code": "GB",
-      "value": 31
-    },
-    {
       "name": "Seychelles",
       "code": "SC",
-      "value": 26
+      "value": 28
     },
     {
       "name": "Bangladesh",
@@ -63,13 +63,13 @@
       "value": 17
     },
     {
-      "name": "Canada",
-      "code": "CA",
-      "value": 12
-    },
-    {
       "name": "India",
       "code": "IN",
+      "value": 13
+    },
+    {
+      "name": "Canada",
+      "code": "CA",
       "value": 12
     },
     {
@@ -80,7 +80,7 @@
     {
       "name": "Czechia",
       "code": "CZ",
-      "value": 7
+      "value": 8
     },
     {
       "name": "Malaysia",
@@ -95,7 +95,7 @@
     {
       "name": "Vietnam",
       "code": "VN",
-      "value": 5
+      "value": 6
     },
     {
       "name": "Switzerland",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 507,
+      "value": 517,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -271,7 +271,7 @@
       "name": "Ashburn",
       "country": "United States",
       "code": "US",
-      "value": 104,
+      "value": 112,
       "lat": 39.04,
       "lon": -77.49
     },
@@ -292,6 +292,18 @@
       "lon": 103.85
     },
     {
+      "name": null,
+      "country": "Seychelles",
+      "code": "SC",
+      "value": 28
+    },
+    {
+      "name": null,
+      "country": "United States",
+      "code": "US",
+      "value": 28
+    },
+    {
       "name": "Shenzhen",
       "country": "China",
       "code": "CN",
@@ -308,12 +320,6 @@
       "lon": 8.68
     },
     {
-      "name": null,
-      "country": "United States",
-      "code": "US",
-      "value": 21
-    },
-    {
       "name": "Hong Kong",
       "country": "Hong Kong",
       "code": "HK",
@@ -322,10 +328,12 @@
       "lon": 114.17
     },
     {
-      "name": null,
-      "country": "Seychelles",
-      "code": "SC",
-      "value": 17
+      "name": "London",
+      "country": "United Kingdom",
+      "code": "GB",
+      "value": 15,
+      "lat": 51.51,
+      "lon": -0.13
     },
     {
       "name": "Brisbane",
@@ -342,12 +350,10 @@
       "value": 14
     },
     {
-      "name": "London",
+      "name": null,
       "country": "United Kingdom",
       "code": "GB",
-      "value": 13,
-      "lat": 51.51,
-      "lon": -0.13
+      "value": 13
     },
     {
       "name": "Beijing",
@@ -374,12 +380,6 @@
       "lon": -118.24
     },
     {
-      "name": null,
-      "country": "United Kingdom",
-      "code": "GB",
-      "value": 11
-    },
-    {
       "name": "Dhaka",
       "country": "Bangladesh",
       "code": "BD",
@@ -402,6 +402,18 @@
       "value": 10
     },
     {
+      "name": null,
+      "country": "Italy",
+      "code": "IT",
+      "value": 10
+    },
+    {
+      "name": null,
+      "country": "Netherlands",
+      "code": "NL",
+      "value": 10
+    },
+    {
       "name": "Shanghai",
       "country": "China",
       "code": "CN",
@@ -410,22 +422,12 @@
       "lon": 121.46
     },
     {
-      "name": null,
-      "country": "Italy",
-      "code": "IT",
-      "value": 9
-    },
-    {
-      "name": null,
-      "country": "Seychelles",
-      "code": "SC",
-      "value": 9
-    },
-    {
-      "name": null,
-      "country": "Netherlands",
-      "code": "NL",
-      "value": 8
+      "name": "Prague",
+      "country": "Czechia",
+      "code": "CZ",
+      "value": 8,
+      "lat": 50.09,
+      "lon": 14.42
     },
     {
       "name": "San Jose",
@@ -442,14 +444,6 @@
       "value": 7,
       "lat": 25.63,
       "lon": 88.64
-    },
-    {
-      "name": "Prague",
-      "country": "Czechia",
-      "code": "CZ",
-      "value": 7,
-      "lat": 50.09,
-      "lon": 14.42
     },
     {
       "name": "Berlin",
@@ -483,8 +477,8 @@
     },
     {
       "name": null,
-      "country": "United States",
-      "code": "US",
+      "country": "Singapore",
+      "code": "SG",
       "value": 6
     },
     {
@@ -504,6 +498,12 @@
       "lon": 120.6
     },
     {
+      "name": null,
+      "country": "India",
+      "code": "IN",
+      "value": 5
+    },
+    {
       "name": "Kobe",
       "country": "Japan",
       "code": "JP",
@@ -518,12 +518,6 @@
       "value": 5,
       "lat": 31.42,
       "lon": 73.09
-    },
-    {
-      "name": null,
-      "country": "Singapore",
-      "code": "SG",
-      "value": 5
     },
     {
       "name": "Tempe",
@@ -578,12 +572,6 @@
       "value": 4,
       "lat": 51.51,
       "lon": -0.6
-    },
-    {
-      "name": null,
-      "country": "India",
-      "code": "IN",
-      "value": 4
     },
     {
       "name": "Chennai",
@@ -772,12 +760,6 @@
       "lon": 31.25
     },
     {
-      "name": null,
-      "country": "United Kingdom",
-      "code": "GB",
-      "value": 2
-    },
-    {
       "name": "Kalyan",
       "country": "India",
       "code": "IN",
@@ -813,12 +795,6 @@
       "name": null,
       "country": "Malta",
       "code": "MT",
-      "value": 2
-    },
-    {
-      "name": null,
-      "country": "Netherlands",
-      "code": "NL",
       "value": 2
     },
     {
@@ -860,6 +836,14 @@
       "value": 2,
       "lat": 47.13,
       "lon": -119.28
+    },
+    {
+      "name": "Hanoi",
+      "country": "Vietnam",
+      "code": "VN",
+      "value": 2,
+      "lat": 21.02,
+      "lon": 105.84
     },
     {
       "name": "Abu Dhabi",
@@ -1184,12 +1168,6 @@
       "value": 1,
       "lat": 35.69,
       "lon": 51.42
-    },
-    {
-      "name": null,
-      "country": "Italy",
-      "code": "IT",
-      "value": 1
     },
     {
       "name": "Chiyoda City",
@@ -1604,14 +1582,6 @@
       "value": 1,
       "lat": 10.04,
       "lon": 105.79
-    },
-    {
-      "name": "Hanoi",
-      "country": "Vietnam",
-      "code": "VN",
-      "value": 1,
-      "lat": 21.02,
-      "lon": 105.84
     }
   ]
 }
