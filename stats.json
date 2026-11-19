@@ -1,16 +1,16 @@
 {
   "metric": "sessions",
-  "visits": 1295,
+  "visits": 1306,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 636
+      "value": 643
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 211
+      "value": 214
     },
     {
       "name": "China",
@@ -25,7 +25,7 @@
     {
       "name": "Germany",
       "code": "DE",
-      "value": 35
+      "value": 36
     },
     {
       "name": "United Kingdom",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 517,
+      "value": 523,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -430,6 +430,14 @@
       "lon": 14.42
     },
     {
+      "name": "Berlin",
+      "country": "Germany",
+      "code": "DE",
+      "value": 8,
+      "lat": 52.52,
+      "lon": 13.41
+    },
+    {
       "name": "San Jose",
       "country": "United States",
       "code": "US",
@@ -438,28 +446,20 @@
       "lon": -121.89
     },
     {
+      "name": "Adelaide",
+      "country": "Australia",
+      "code": "AU",
+      "value": 7,
+      "lat": -34.93,
+      "lon": 138.6
+    },
+    {
       "name": "Dinajpur",
       "country": "Bangladesh",
       "code": "BD",
       "value": 7,
       "lat": 25.63,
       "lon": 88.64
-    },
-    {
-      "name": "Berlin",
-      "country": "Germany",
-      "code": "DE",
-      "value": 7,
-      "lat": 52.52,
-      "lon": 13.41
-    },
-    {
-      "name": "Adelaide",
-      "country": "Australia",
-      "code": "AU",
-      "value": 6,
-      "lat": -34.93,
-      "lon": 138.6
     },
     {
       "name": null,
@@ -814,12 +814,28 @@
       "lon": -87.65
     },
     {
+      "name": "Council Bluffs",
+      "country": "United States",
+      "code": "US",
+      "value": 2,
+      "lat": 41.26,
+      "lon": -95.86
+    },
+    {
       "name": "Des Moines",
       "country": "United States",
       "code": "US",
       "value": 2,
       "lat": 41.6,
       "lon": -93.61
+    },
+    {
+      "name": "Glenview",
+      "country": "United States",
+      "code": "US",
+      "value": 2,
+      "lat": 42.07,
+      "lon": -87.79
     },
     {
       "name": "Minneapolis",
@@ -1346,6 +1362,12 @@
       "lon": 30.52
     },
     {
+      "name": null,
+      "country": "United States",
+      "code": "US",
+      "value": 1
+    },
+    {
       "name": "Atlanta",
       "country": "United States",
       "code": "US",
@@ -1402,14 +1424,6 @@
       "lon": -81.03
     },
     {
-      "name": "Council Bluffs",
-      "country": "United States",
-      "code": "US",
-      "value": 1,
-      "lat": 41.26,
-      "lon": -95.86
-    },
-    {
       "name": "Donaldsonville",
       "country": "United States",
       "code": "US",
@@ -1432,14 +1446,6 @@
       "value": 1,
       "lat": 37.55,
       "lon": -121.99
-    },
-    {
-      "name": "Glenview",
-      "country": "United States",
-      "code": "US",
-      "value": 1,
-      "lat": 42.07,
-      "lon": -87.79
     },
     {
       "name": "Las Vegas Valley",
