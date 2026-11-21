@@ -1,16 +1,16 @@
 {
   "metric": "sessions",
-  "visits": 1309,
+  "visits": 1320,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 645
+      "value": 652
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 214
+      "value": 217
     },
     {
       "name": "China",
@@ -25,7 +25,7 @@
     {
       "name": "Germany",
       "code": "DE",
-      "value": 36
+      "value": 37
     },
     {
       "name": "United Kingdom",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 525,
+      "value": 532,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -422,18 +422,10 @@
       "lon": 121.46
     },
     {
-      "name": "Prague",
-      "country": "Czechia",
-      "code": "CZ",
-      "value": 8,
-      "lat": 50.09,
-      "lon": 14.42
-    },
-    {
       "name": "Berlin",
       "country": "Germany",
       "code": "DE",
-      "value": 8,
+      "value": 9,
       "lat": 52.52,
       "lon": 13.41
     },
@@ -441,9 +433,17 @@
       "name": "San Jose",
       "country": "United States",
       "code": "US",
-      "value": 8,
+      "value": 9,
       "lat": 37.34,
       "lon": -121.89
+    },
+    {
+      "name": "Prague",
+      "country": "Czechia",
+      "code": "CZ",
+      "value": 8,
+      "lat": 50.09,
+      "lon": 14.42
     },
     {
       "name": "Adelaide",
@@ -658,6 +658,14 @@
       "value": 3
     },
     {
+      "name": "Council Bluffs",
+      "country": "United States",
+      "code": "US",
+      "value": 3,
+      "lat": 41.26,
+      "lon": -95.86
+    },
+    {
       "name": "Durham",
       "country": "United States",
       "code": "US",
@@ -812,14 +820,6 @@
       "value": 2,
       "lat": 41.85,
       "lon": -87.65
-    },
-    {
-      "name": "Council Bluffs",
-      "country": "United States",
-      "code": "US",
-      "value": 2,
-      "lat": 41.26,
-      "lon": -95.86
     },
     {
       "name": "Des Moines",
@@ -1566,6 +1566,14 @@
       "value": 1,
       "lat": 38.9,
       "lon": -77.04
+    },
+    {
+      "name": "Waukesha",
+      "country": "United States",
+      "code": "US",
+      "value": 1,
+      "lat": 43.01,
+      "lon": -88.23
     },
     {
       "name": "Wauwatosa",
