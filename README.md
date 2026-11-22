@@ -10,7 +10,7 @@ before committing, so browsers fetch the new files straight away.
 ## Visitor map
 
 `stats.json` is refreshed every day by `.github/workflows/update_stats.yml`
-(`scripts/update_stats.mjs`). It holds visits (sessions) over the past 365 days,
+(`scripts/update_stats.mjs`). It holds page views over the past 365 days,
 per country for the ranking and per city for the map bubbles.
 
 Repository secrets used by the workflow (Settings → Secrets and variables → Actions):

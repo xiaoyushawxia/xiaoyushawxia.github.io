@@ -1,6 +1,6 @@
 /*
  * visitor-map.js — renders the "Visitors" bubble map (one bubble per city)
- * and the country ranking (visits per country), and keeps
+ * and the country ranking (page views per country), and keeps
  * the block in the sidebar on wide screens and in the main column on narrow ones.
  *
  * Data sources (both static files in this repo, no third-party requests):
@@ -11,7 +11,7 @@
  *                                 scale/offset so city coordinates can be
  *                                 placed on the same map.
  *
- * Counts are visits (GA sessions), not distinct people.
+ * Counts are page views: every page opened counts once.
  */
 (function () {
   'use strict';
@@ -136,7 +136,7 @@
     var drawn = bubbles.slice().sort(function (a, b) { return b.value - a.value; });
 
     var circles = drawn.map(function (c) {
-      var label = c.label + ': ' + c.value.toLocaleString() + (c.value === 1 ? ' visit' : ' visits');
+      var label = c.label + ': ' + c.value.toLocaleString() + (c.value === 1 ? ' view' : ' views');
       return '<circle class="visitor-map__bubble" data-country="' + escapeHtml(c.country) + '"' +
         ' cx="' + c.x.toFixed(1) + '" cy="' + c.y.toFixed(1) + '" r="' + radius(c.value, max).toFixed(1) + '"' +
         ' tabindex="0" role="img" aria-label="' + escapeHtml(label) + '">' +
@@ -154,7 +154,7 @@
   }
 
   /*
-   * One bubble per city (visits at the same spot are merged). Without city
+   * One bubble per city (views at the same spot are merged). Without city
    * data — an older stats.json — fall back to one bubble per country.
    */
   function bubblesFor(stats, countries, world, pointOf) {
@@ -185,6 +185,30 @@
       var place = s.names.length ? s.names.slice(0, 3).join(', ') + (s.names.length > 3 ? ' and others' : '') + ', ' : '';
       return { x: s.x, y: s.y, value: s.value, label: place + s.country, country: s.country };
     });
+  }
+
+  /* Headline figure above the map: total views and how many countries. */
+  function renderTotal(total, countryCount, unit) {
+    return '<p class="visitor-map__total-num" data-count="' + total + '">' + total.toLocaleString() + '</p>' +
+      '<p class="visitor-map__total-label">' + unit + ' in the past 12 months</p>' +
+      '<p class="visitor-map__total-meta"><span class="visitor-map__total-dot" aria-hidden="true"></span>' +
+      'from ' + countryCount + (countryCount === 1 ? ' country or region' : ' countries &amp; regions') + '</p>';
+  }
+
+  /* Count up to the total once, unless the reader prefers reduced motion. */
+  function countUp(el) {
+    var target = Number(el.getAttribute('data-count')) || 0;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still || !window.requestAnimationFrame || target < 20) return;
+    var start = null, ms = 900;
+    function step(now) {
+      if (start === null) start = now;
+      var k = Math.min(1, (now - start) / ms);
+      var eased = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(target * eased).toLocaleString();
+      if (k < 1) window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
   }
 
   function renderRanking(countries, max) {
@@ -244,7 +268,7 @@
       return (code && byCode[String(code).toLowerCase()]) || locate(name);
     }
 
-    /* Ranking: visits per country. */
+    /* Ranking: page views per country. */
     var countries = (stats.countries || [])
       .filter(function (c) { return c && c.name && c.name !== '(not set)' && c.value > 0; })
       .map(function (c) { return { name: c.name, value: c.value, point: pointOf(c.name, c.code) }; })
@@ -252,15 +276,26 @@
 
     var max = countries.length ? countries[0].value : 0;
 
-    /* Map: visits per city. */
+    /* Map: page views per city. */
     var bubbles = bubblesFor(stats, countries, world, pointOf);
     var bubbleMax = bubbles.reduce(function (m, c) { return Math.max(m, c.value); }, 0);
 
     root.querySelector('[data-visitor-canvas]').innerHTML = renderMap(world, bubbles, bubbleMax);
     root.querySelector('[data-visitor-ranking]').innerHTML = renderRanking(countries, max);
 
+    var totalBox = root.querySelector('[data-visitor-total]');
+    var total = Number(stats.views || stats.visits) ||
+      countries.reduce(function (sum, c) { return sum + c.value; }, 0);
+    if (totalBox && total > 0) {
+      /* stats.json says what it counted; older files counted visits (sessions). */
+      var unit = stats.metric === 'pageviews' ? 'page views' : 'visits';
+      totalBox.innerHTML = renderTotal(total, countries.length, unit);
+      totalBox.hidden = false;
+    }
+
     link(root);
     root.hidden = false;
+    if (totalBox && !totalBox.hidden) countUp(totalBox.querySelector('.visitor-map__total-num'));
     fit();
   }).catch(function (error) {
     console.error('Visitor map unavailable:', error);

@@ -1403,6 +1403,66 @@ code, pre { font-family: var(--font-mono); }
   border: 0;
 }
 
+/* Headline total above the visitor map. */
+.visitor-map__total {
+  position: relative;
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border, var(--border));
+  background:
+    radial-gradient(120% 140% at 100% 0, var(--research-100, var(--surface-2)), transparent 60%),
+    var(--research-50, var(--surface-2));
+  overflow: hidden;
+}
+
+.visitor-map__total[hidden] { display: none; }
+
+.visitor-map__total-num {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.visitor-map__total-label {
+  margin: var(--space-1) 0 0;
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+
+.visitor-map__total-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+/* A small pulsing dot: the figure is refreshed daily. */
+.visitor-map__total-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--venue);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--venue) 45%, transparent);
+  animation: visitor-pulse 2.4s ease-out infinite;
+}
+
+@keyframes visitor-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--venue) 45%, transparent); }
+  70%  { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visitor-map__total-dot { animation: none; }
+}
+
 /* ==========================================================================
    10. Visual layer — light research-grid backdrop, white cards, pill tags
        and a dark footer band. Loaded after the components so it can restyle

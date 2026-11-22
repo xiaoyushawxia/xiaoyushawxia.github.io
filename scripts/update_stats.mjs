@@ -1,12 +1,12 @@
 /*
  * update_stats.mjs — refreshes stats.json for the "Visitors" map on the homepage.
  *
- * Counts are visits (Google Analytics "sessions") over the past 365 days:
- * someone who comes back next week counts twice. GA identifies visitors by a
- * browser cookie, not by IP address.
+ * Counts are page views (Google Analytics "screenPageViews") over the past
+ * 365 days: every page opened counts once, so one person reading three pages
+ * counts three times. Nothing is counted per IP address.
  *
- *   countries  visits per country — the ranking on the page
- *   cities     visits per city with coordinates — the bubbles on the map
+ *   countries  page views per country — the ranking on the page
+ *   cities     page views per city with coordinates — the bubbles on the map
  *
  * City coordinates come from GeoNames (cities1000.txt, CC BY 4.0), which the
  * workflow downloads next to this script. A city GeoNames does not know, or
@@ -14,7 +14,7 @@
  *
  * Mainland China: GA's tag rarely loads there, so when Baidu Tongji is set
  * up (BAIDU_* secrets, see README) China's figure comes from Baidu instead
- * — visits summed over mainland provinces for the same 365 days. The larger
+ * — page views summed over mainland provinces for the same 365 days. The larger
  * of the two figures is used, so the number never drops while Baidu's own
  * history is still short. Without the secrets this step is skipped.
  */
@@ -62,7 +62,7 @@ async function report(dimensions) {
         property,
         dateRanges,
         dimensions: dimensions.map(name => ({ name })),
-        metrics: [{ name: "sessions" }],
+        metrics: [{ name: "screenPageViews" }],
         limit: 5000
     });
     return (res.rows || []).map(r => ({
@@ -93,12 +93,12 @@ async function baiduChinaVisits() {
     const url = "https://openapi.baidu.com/rest/2.0/tongji/report/getData" +
         `?access_token=${encodeURIComponent(token.access_token)}&site_id=${encodeURIComponent(site)}` +
         `&method=visit/district/a&start_date=${ymd(start)}&end_date=${ymd(end)}` +
-        "&metrics=visit_count&max_results=0";
+        "&metrics=pv_count&max_results=0";
     const data = await (await fetch(url)).json();
     const result = data.result;
     if (!result || !Array.isArray(result.items)) throw new Error("Baidu report failed: " + JSON.stringify(data));
 
-    /* items[0] = one [ {name, ...} ] per province, items[1] = one [visit_count] per province. */
+    /* items[0] = one [ {name, ...} ] per province, items[1] = one [pv_count] per province. */
     const names = result.items[0] || [], values = result.items[1] || [];
     let visits = 0;
     names.forEach((dim, i) => {
@@ -149,9 +149,9 @@ async function run() {
 
     const visits = countries.reduce((sum, c) => sum + c.value, 0);
     const located = cities.filter(c => typeof c.lat === "number").length;
-    console.log(`${visits} visits, ${countries.length} countries, ${located}/${cities.length} map spots with city coordinates`);
+    console.log(`${visits} page views, ${countries.length} countries, ${located}/${cities.length} map spots with city coordinates`);
 
-    fs.writeFileSync("../stats.json", JSON.stringify({ metric: "sessions", visits, countries, cities }, null, 2));
+    fs.writeFileSync("../stats.json", JSON.stringify({ metric: "pageviews", views: visits, countries, cities }, null, 2));
 }
 
 run();
