@@ -3,3 +3,9 @@
 scripts/node_modules/
 scripts/cities1000.*
 scripts/baidu_refresh_token.txt
+
+# Claude output folder (working copies, never published)
+Claude outputs/
+# Markdown notes dropped into the site root by mistake
+/*.md
+!/README.md
