@@ -1,11 +1,11 @@
 {
   "metric": "sessions",
-  "visits": 1320,
+  "visits": 1327,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 652
+      "value": 654
     },
     {
       "name": "United States",
@@ -20,7 +20,7 @@
     {
       "name": "Singapore",
       "code": "SG",
-      "value": 41
+      "value": 45
     },
     {
       "name": "Germany",
@@ -35,7 +35,7 @@
     {
       "name": "Japan",
       "code": "JP",
-      "value": 32
+      "value": 33
     },
     {
       "name": "Seychelles",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 532,
+      "value": 534,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -287,7 +287,7 @@
       "name": "Singapore",
       "country": "Singapore",
       "code": "SG",
-      "value": 35,
+      "value": 39,
       "lat": 1.29,
       "lon": 103.85
     },
@@ -465,7 +465,7 @@
       "name": null,
       "country": "Japan",
       "code": "JP",
-      "value": 6
+      "value": 7
     },
     {
       "name": "Amsterdam",
