@@ -1,16 +1,16 @@
 {
   "metric": "pageviews",
-  "views": 2040,
+  "views": 2056,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 1135
+      "value": 1147
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 254
+      "value": 257
     },
     {
       "name": "China",
@@ -35,7 +35,7 @@
     {
       "name": "Taiwan",
       "code": "TW",
-      "value": 44
+      "value": 45
     },
     {
       "name": "Bangladesh",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 912,
+      "value": 923,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -424,20 +424,20 @@
       "lon": 73.09
     },
     {
+      "name": "Adelaide",
+      "country": "Australia",
+      "code": "AU",
+      "value": 12,
+      "lat": -34.93,
+      "lon": 138.6
+    },
+    {
       "name": "Kyoto",
       "country": "Japan",
       "code": "JP",
       "value": 12,
       "lat": 35.02,
       "lon": 135.75
-    },
-    {
-      "name": "Adelaide",
-      "country": "Australia",
-      "code": "AU",
-      "value": 11,
-      "lat": -34.93,
-      "lon": 138.6
     },
     {
       "name": null,
@@ -706,6 +706,20 @@
       "lon": 29.06
     },
     {
+      "name": "East District",
+      "country": "Taiwan",
+      "code": "TW",
+      "value": 4
+    },
+    {
+      "name": "Council Bluffs",
+      "country": "United States",
+      "code": "US",
+      "value": 4,
+      "lat": 41.26,
+      "lon": -95.86
+    },
+    {
       "name": "San Francisco",
       "country": "United States",
       "code": "US",
@@ -736,20 +750,6 @@
       "value": 3,
       "lat": 6.94,
       "lon": 79.85
-    },
-    {
-      "name": "East District",
-      "country": "Taiwan",
-      "code": "TW",
-      "value": 3
-    },
-    {
-      "name": "Council Bluffs",
-      "country": "United States",
-      "code": "US",
-      "value": 3,
-      "lat": 41.26,
-      "lon": -95.86
     },
     {
       "name": "Des Moines",
@@ -1426,6 +1426,14 @@
       "lon": -86.8
     },
     {
+      "name": "Boardman",
+      "country": "United States",
+      "code": "US",
+      "value": 1,
+      "lat": 41.02,
+      "lon": -80.66
+    },
+    {
       "name": "Boston",
       "country": "United States",
       "code": "US",
@@ -1448,6 +1456,14 @@
       "value": 1,
       "lat": 34,
       "lon": -81.03
+    },
+    {
+      "name": "Columbus",
+      "country": "United States",
+      "code": "US",
+      "value": 1,
+      "lat": 39.96,
+      "lon": -83
     },
     {
       "name": "Donaldsonville",
