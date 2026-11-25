@@ -1,11 +1,11 @@
 {
   "metric": "pageviews",
-  "views": 2056,
+  "views": 2061,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 1147
+      "value": 1152
     },
     {
       "name": "United States",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 923,
+      "value": 928,
       "lat": -37.81,
       "lon": 144.96
     },
