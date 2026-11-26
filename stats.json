@@ -1,21 +1,21 @@
 {
   "metric": "pageviews",
-  "views": 2061,
+  "views": 2092,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 1152
+      "value": 1169
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 257
+      "value": 259
     },
     {
       "name": "China",
       "code": "CN",
-      "value": 160
+      "value": 172
     },
     {
       "name": "Singapore",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 928,
+      "value": 945,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -430,6 +430,14 @@
       "value": 12,
       "lat": -34.93,
       "lon": 138.6
+    },
+    {
+      "name": "Chongqing",
+      "country": "China",
+      "code": "CN",
+      "value": 12,
+      "lat": 29.56,
+      "lon": 106.56
     },
     {
       "name": "Kyoto",
@@ -1070,6 +1078,14 @@
       "value": 2,
       "lat": 38.25,
       "lon": -85.76
+    },
+    {
+      "name": "Madison",
+      "country": "United States",
+      "code": "US",
+      "value": 2,
+      "lat": 43.07,
+      "lon": -89.4
     },
     {
       "name": "Mesquite",
