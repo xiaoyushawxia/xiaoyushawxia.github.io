@@ -1,16 +1,16 @@
 {
   "metric": "pageviews",
-  "views": 2092,
+  "views": 2125,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 1169
+      "value": 1194
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 259
+      "value": 265
     },
     {
       "name": "China",
@@ -30,7 +30,7 @@
     {
       "name": "Japan",
       "code": "JP",
-      "value": 45
+      "value": 47
     },
     {
       "name": "Taiwan",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 945,
+      "value": 963,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -309,7 +309,7 @@
       "name": null,
       "country": "United States",
       "code": "US",
-      "value": 30
+      "value": 31
     },
     {
       "name": "Hong Kong",
@@ -430,6 +430,14 @@
       "value": 12,
       "lat": -34.93,
       "lon": 138.6
+    },
+    {
+      "name": "Gold Coast",
+      "country": "Australia",
+      "code": "AU",
+      "value": 12,
+      "lat": -28,
+      "lon": 153.43
     },
     {
       "name": "Chongqing",
@@ -582,14 +590,6 @@
       "lon": 149.13
     },
     {
-      "name": "Gold Coast",
-      "country": "Australia",
-      "code": "AU",
-      "value": 5,
-      "lat": -28,
-      "lon": 153.43
-    },
-    {
       "name": "Dinajpur",
       "country": "Bangladesh",
       "code": "BD",
@@ -618,6 +618,22 @@
       "country": "India",
       "code": "IN",
       "value": 5
+    },
+    {
+      "name": "Council Bluffs",
+      "country": "United States",
+      "code": "US",
+      "value": 5,
+      "lat": 41.26,
+      "lon": -95.86
+    },
+    {
+      "name": "Durham",
+      "country": "United States",
+      "code": "US",
+      "value": 5,
+      "lat": 35.99,
+      "lon": -78.9
     },
     {
       "name": null,
@@ -698,6 +714,14 @@
       "lon": 139.65
     },
     {
+      "name": "Shinjuku City",
+      "country": "Japan",
+      "code": "JP",
+      "value": 4,
+      "lat": 35.69,
+      "lon": 139.71
+    },
+    {
       "name": "Kota Kinabalu",
       "country": "Malaysia",
       "code": "MY",
@@ -718,14 +742,6 @@
       "country": "Taiwan",
       "code": "TW",
       "value": 4
-    },
-    {
-      "name": "Council Bluffs",
-      "country": "United States",
-      "code": "US",
-      "value": 4,
-      "lat": 41.26,
-      "lon": -95.86
     },
     {
       "name": "San Francisco",
@@ -768,12 +784,12 @@
       "lon": -93.61
     },
     {
-      "name": "Durham",
+      "name": "Glenview",
       "country": "United States",
       "code": "US",
       "value": 3,
-      "lat": 35.99,
-      "lon": -78.9
+      "lat": 42.07,
+      "lon": -87.79
     },
     {
       "name": "Moses Lake",
@@ -968,14 +984,6 @@
       "lon": 135.5
     },
     {
-      "name": "Shinjuku City",
-      "country": "Japan",
-      "code": "JP",
-      "value": 2,
-      "lat": 35.69,
-      "lon": 139.71
-    },
-    {
       "name": "Seoul",
       "country": "South Korea",
       "code": "KR",
@@ -1064,12 +1072,12 @@
       "lon": -87.65
     },
     {
-      "name": "Glenview",
+      "name": "Cleveland",
       "country": "United States",
       "code": "US",
       "value": 2,
-      "lat": 42.07,
-      "lon": -87.79
+      "lat": 41.5,
+      "lon": -81.7
     },
     {
       "name": "Louisville",
@@ -1456,14 +1464,6 @@
       "value": 1,
       "lat": 42.36,
       "lon": -71.06
-    },
-    {
-      "name": "Cleveland",
-      "country": "United States",
-      "code": "US",
-      "value": 1,
-      "lat": 41.5,
-      "lon": -81.7
     },
     {
       "name": "Columbia",
