@@ -1,26 +1,26 @@
 {
   "metric": "pageviews",
-  "views": 2125,
+  "views": 2138,
   "countries": [
     {
       "name": "Australia",
       "code": "AU",
-      "value": 1194
+      "value": 1200
     },
     {
       "name": "United States",
       "code": "US",
-      "value": 265
+      "value": 266
     },
     {
       "name": "China",
       "code": "CN",
-      "value": 172
+      "value": 176
     },
     {
       "name": "Singapore",
       "code": "SG",
-      "value": 53
+      "value": 54
     },
     {
       "name": "Germany",
@@ -90,7 +90,7 @@
     {
       "name": "Vietnam",
       "code": "VN",
-      "value": 9
+      "value": 10
     },
     {
       "name": "Czechia",
@@ -263,7 +263,7 @@
       "name": "Melbourne",
       "country": "Australia",
       "code": "AU",
-      "value": 963,
+      "value": 969,
       "lat": -37.81,
       "lon": 144.96
     },
@@ -287,7 +287,7 @@
       "name": "Singapore",
       "country": "Singapore",
       "code": "SG",
-      "value": 46,
+      "value": 47,
       "lat": 1.29,
       "lon": 103.85
     },
@@ -309,7 +309,7 @@
       "name": null,
       "country": "United States",
       "code": "US",
-      "value": 31
+      "value": 32
     },
     {
       "name": "Hong Kong",
@@ -350,20 +350,20 @@
       "lon": 116.4
     },
     {
+      "name": "Shanghai",
+      "country": "China",
+      "code": "CN",
+      "value": 21,
+      "lat": 31.22,
+      "lon": 121.46
+    },
+    {
       "name": "Los Angeles",
       "country": "United States",
       "code": "US",
       "value": 20,
       "lat": 34.05,
       "lon": -118.24
-    },
-    {
-      "name": "Shanghai",
-      "country": "China",
-      "code": "CN",
-      "value": 17,
-      "lat": 31.22,
-      "lon": 121.46
     },
     {
       "name": null,
@@ -760,6 +760,14 @@
       "lon": 105.84
     },
     {
+      "name": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "code": "VN",
+      "value": 4,
+      "lat": 10.82,
+      "lon": 106.63
+    },
+    {
       "name": "Wuxi",
       "country": "China",
       "code": "CN",
@@ -806,14 +814,6 @@
       "value": 3,
       "lat": 26.93,
       "lon": -82.05
-    },
-    {
-      "name": "Ho Chi Minh City",
-      "country": "Vietnam",
-      "code": "VN",
-      "value": 3,
-      "lat": 10.82,
-      "lon": 106.63
     },
     {
       "name": "Andorra la Vella",
